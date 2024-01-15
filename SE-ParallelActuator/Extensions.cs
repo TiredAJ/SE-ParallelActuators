@@ -1,4 +1,6 @@
-﻿namespace IngameScript
+﻿using System.Linq;
+
+namespace IngameScript
 {
     // This template is intended for extension classes. For most purposes you're going to want a normal
     // utility class.
@@ -19,5 +21,11 @@
 
             return false;
         }
+
+        public static int CountNotNull(this double?[] _Arr)
+        { return _Arr.Count(X => X != null); }
+
+        public static int CountNotNull(this float?[] _Arr)
+        { return _Arr.Count(X => X != null); }
     }
 }
