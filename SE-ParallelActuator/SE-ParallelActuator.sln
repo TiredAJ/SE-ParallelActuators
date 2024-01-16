@@ -5,13 +5,32 @@ VisualStudioVersion = 17.9.34414.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SE-ParallelActuator", "SE-ParallelActuator.csproj", "{CE8A197D-AE36-4246-A855-3E86B3E9E452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsTester", "..\MathsTester\MathsTester.csproj", "{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Debug|Any CPU.Build.0 = Debug|x64
 		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Debug|x64.ActiveCfg = Debug|x64
 		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Debug|x64.Build.0 = Debug|x64
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Release|Any CPU.ActiveCfg = Debug|x64
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Release|Any CPU.Build.0 = Debug|x64
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Release|x64.ActiveCfg = Debug|x64
+		{CE8A197D-AE36-4246-A855-3E86B3E9E452}.Release|x64.Build.0 = Debug|x64
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Debug|x64.Build.0 = Debug|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Release|x64.ActiveCfg = Release|Any CPU
+		{E3A1DD4F-3583-4DFB-974D-EFA212A9EF1B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,7 @@ namespace IngameScript
         //
         // to learn more about ingame scripts.
 
-        private IMyArtificialMassBlock MA1, MA2, MA3;
+        private IMyArtificialMassBlock AM_AB, AM_BC, AM_CA;
         private string BlockNames = "AM_Beacon ";
 
         public Program()
@@ -44,19 +44,26 @@ namespace IngameScript
             // here, which will allow your script to run itself without a 
             // timer block.
 
-            MA1 = GridTerminalSystem.GetBlockWithName($"{BlockNames}1")
+            AM_AB = GridTerminalSystem.GetBlockWithName("AM-AB")
                     as IMyArtificialMassBlock;
-            MA2 = GridTerminalSystem.GetBlockWithName($"{BlockNames}2")
+            AM_BC = GridTerminalSystem.GetBlockWithName("AM-BC")
                     as IMyArtificialMassBlock;
-            MA3 = GridTerminalSystem.GetBlockWithName($"{BlockNames}3")
+            AM_CA = GridTerminalSystem.GetBlockWithName("AM-CA")
                     as IMyArtificialMassBlock;
         }
 
         public void Main(string argument, UpdateType updateSource)
         {
-            var Distance = Vector3.Distance(MA1.GetPosition(), MA2.GetPosition());
 
 
+
+            var A_Distance = Vector3.Distance(AM_AB.GetPosition(), AM_CA.GetPosition());
+
+            var B_Distance = Vector3.Distance(AM_AB.GetPosition(), AM_BC.GetPosition());
+
+            var C_Distance = Vector3.Distance(AM_BC.GetPosition(), AM_CA.GetPosition());
+
+            Echo($"A: {A_Distance}, B: {B_Distance}, C: {C_Distance}");
         }
     }
 }

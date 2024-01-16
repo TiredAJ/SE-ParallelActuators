@@ -8,13 +8,13 @@ namespace IngameScript
     {
         public class Triangle
         {
-            private double?[] Sides { get; set; } = new double?[3]
+            public double?[] Sides { get; set; } = new double?[3]
                 {null, null, null };
-            private float?[] Angles { get; set; } = new float?[3]
+            public float?[] Angles { get; set; } = new float?[3]
                 {null, null, null };
 
-            private Angle[] AvailAngles = new[] { Angle.AB, Angle.BC, Angle.CA };
-            private Side[] AvailSides = new[] { Side.A, Side.B, Side.C };
+            private readonly int[] AvailAngles = new[] { Angle.A, Angle.B, Angle.C };
+            private readonly int[] AvailSides = new[] { Side.a, Side.b, Side.c };
 
             public Triangle()
             { }
@@ -35,9 +35,9 @@ namespace IngameScript
                 return Math.Sqrt
                 (d:
                     S *
-                    (S - (double)Sides[(int)Side.A]) *
-                    (S - (double)Sides[(int)Side.B]) *
-                    (S - (double)Sides[(int)Side.C])
+                    (S - (double)Sides[Side.a]) *
+                    (S - (double)Sides[Side.b]) *
+                    (S - (double)Sides[Side.c])
                 );
             }
 
@@ -46,25 +46,35 @@ namespace IngameScript
             /// </summary>
             /// <param name="_Desired">Angle to calculate</param>
             /// <returns>The angle, or null if failed</returns>
-            public float? Get_Angle_SSS(Angle _Desired)
+            public float? Get_Angle_SSS(int _Desired)
             {
                 if (Sides.CountNotNull() != 3)
                 { return null; }
+                if (!_Desired.InRange())
+                { return null; }
 
-                var TAngles = AvailAngles
-                                    .Where(X => X != _Desired)
-                                    .OfType<int>();
+                List<int> TAngles = new List<int>(AvailAngles);
 
-                var Squared =
+                TAngles.RemoveAt(_Desired - 1);
+
+                double[] Squared =
+                {
+            Math.Pow((float)Sides[Angle.A -1], 2),
+            Math.Pow((float)Sides[Angle.B -1], 2),
+            Math.Pow((float)Sides[Angle.C -1], 2)
+        };
+
+                double Mixed =
                 (
-                    Math.Pow((float)Sides[TAngles.First()], 2) +
-                    Math.Pow((float)Sides[TAngles.Last()], 2)
-                ) - Math.Pow((float)Sides[(int)_Desired], 2);
+                    Squared[TAngles.First() - 1] +
+                    Squared[TAngles.Last() - 1] -
+                    Squared[_Desired - 1]
+                );
 
 
-                var Divd = Squared / (2 * (double)Sides[TAngles.First()] * (double)Sides[TAngles.Last()]);
+                var Divd = Mixed / (2d * (double)Sides[TAngles.First() - 1] * (double)Sides[TAngles.Last() - 1]);
 
-                return (float)Math.Acos(Divd);
+                return (float)Math.Acos(Divd).RadToDeg();
             }
 
             /// <summary>
@@ -72,8 +82,10 @@ namespace IngameScript
             /// </summary>
             /// <param name="_Missing">Angle to calculate</param>
             /// <returns>The angle</returns>
-            public float Get_Angle(Angle _Missing)
+            public float Get_Angle(int _Missing)
             {
+                throw new Exception();
+
                 if (Sides.CountNotNull() == 3)
                 {
 
@@ -87,12 +99,12 @@ namespace IngameScript
             /// <exception cref="Exception"></exception>
             public float Get_Angle()
             {
-                Angle? TargetAngle = Get_MissingAngle_ID();
+                int? TargetAngle = Get_MissingAngle_ID();
 
                 if (TargetAngle == null)
                 { throw new Exception("TargetAngle was null!"); }
 
-                Angles[(int)TargetAngle] = Get_Angle((Angle)TargetAngle);
+                Angles[(int)TargetAngle] = Get_Angle((int)TargetAngle);
 
                 return (float)Angles[(int)TargetAngle];
             }
@@ -101,16 +113,16 @@ namespace IngameScript
             /// Calculates the Angle enum of the missing angle
             /// </summary>
             /// <returns>The ID of the missing angle</returns>
-            public Angle? Get_MissingAngle_ID()
+            public int? Get_MissingAngle_ID()
             {
-                List<Angle> CurrentAngles = new List<Angle>();
+                List<int> CurrentAngles = new List<int>();
 
-                if (Angles[(int)Angle.AB] != null)
-                { CurrentAngles.Add(Angle.AB); }
-                if (Angles[(int)Angle.BC] != null)
-                { CurrentAngles.Add(Angle.BC); }
-                if (Angles[(int)Angle.CA] != null)
-                { CurrentAngles.Add(Angle.CA); }
+                if (Angles[Angle.A] != null)
+                { CurrentAngles.Add(Angle.A); }
+                if (Angles[Angle.B] != null)
+                { CurrentAngles.Add(Angle.B); }
+                if (Angles[Angle.C] != null)
+                { CurrentAngles.Add(Angle.C); }
 
                 if (CurrentAngles.Count > 2)
                 { return null; }
@@ -142,18 +154,18 @@ namespace IngameScript
             }
         }
 
-        public enum Side : int
+        public static class Side
         {
-            A = 1,
-            B = 2,
-            C = 3
+            public static int a = 1;
+            public static int b = 2;
+            public static int c = 3;
         }
 
-        public enum Angle : int
+        public static class Angle
         {
-            AB = 1,
-            BC = 2,
-            CA = 3
+            public static int A = 1;
+            public static int B = 2;
+            public static int C = 3;
         }
     }
 }
