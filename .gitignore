@@ -397,3 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 *.paths.props
+SE-ParallelActuator/MDK/MDK.paths.props
+SE-ParallelActuator/MDK/MDK.paths.props
